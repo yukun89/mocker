@@ -1,1 +1,4 @@
-# mocker
+# GCC wrap 原理
+对symbol使用包装函数(wrapper function)，任何对symbol未定义的引用(undefined reference)会被解析成__wrap_symbol，而任何对__real_symbol未定义的引用会被解析成symbol。即当一个名为symbol符号使用wrap功能时，工程中任何用到symbol符号的地方实际使用的是__wrap_symbol符号，任何用到__real_symbol的地方实际使用的是真正的symbol。注意：当__wrap_symbol是使用C++实现时，一定要加上extern “C”，否则将会出现”undefined reference to __wrap_symbol”。
+
+注意，如果想在mock symbol中调用实际的symbol，一定需要使用__real_symbol进行包装。否则会陷入循环引用。
